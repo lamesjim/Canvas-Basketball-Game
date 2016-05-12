@@ -11,7 +11,7 @@ First, [make sure your project description matches what is listed here](https://
 **9:15** Arrive  
 **9:15 - 9:30** Micro-warmup, attendance checking  
 **9:30 - ~10:00** Short Lecture  
-**9:30 - 9:40** Standup  
+**After Lecture, <10 mins** Standup  
 Come prepared with:
 
 - What you're working on today
