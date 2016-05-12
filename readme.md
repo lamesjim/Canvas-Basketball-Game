@@ -10,7 +10,7 @@ First, [make sure your project description matches what is listed here](https://
 ### Daily Schedule
 **9:15** Arrive  
 **9:15 - 9:30** Micro-warmup, attendance checking  
-9:30 - 10:00
+**9:30 - ~10:00** Short Lecture  
 **9:30 - 9:40** Standup  
 Come prepared with:
 
