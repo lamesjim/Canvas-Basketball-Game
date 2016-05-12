@@ -1,0 +1,25 @@
+body { /* setting and positioning background */
+	background-image: url("../images/homepage.jpeg");
+	background-repeat: no-repeat;
+	background-position: 50% -50%;
+	background-size: 450px 320px;
+	background-color: gray;
+}
+/* position start button */
+.btn-area {
+	text-align: center;
+	margin-top: 320px;
+}
+/* style start button */
+.start-btn[type="submit"] {
+	background-color: hsla(40, 80%, 50%, 1);
+	/*font-color: black;*/
+	border-radius: 28px;
+	border-radius: 28px;
+	border: 1px solid black;
+	color: black;
+	padding: 11px 20px;
+	text-decoration: none;
+	text-transform: uppercase;
+	/*text-shadow: 0px 1px 0px #2f6627;*/
+}
