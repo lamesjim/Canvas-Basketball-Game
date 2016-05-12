@@ -18,7 +18,7 @@ Come prepared with:
 - Two things you know you need to do
 - Two different things you know you need to figure out
 
-**9:40 - 12:00** Work on project, get help from instructors  
+**10:00 - 12:00** Work on project, get help from instructors  
 **12:00 - 1:00** Eat  
 **1:00 - 4:00** Work on project, get help from instructors  
 **4:00 - 5:00** Show progress to Project Lead (10 mins, individually)  
