@@ -4,9 +4,74 @@
 	<meta charset="utf-8">
 	<title></title>
 	<!--load links/scripts below (i.e. jquery, bootstrap, javascripts-->
-
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 </head>
 <body>
+	<script src="javascript/main.js"></script>
+	<script src="javascript/basketball.js"></script>
+	<canvas id="ballArea" width=1270px height=800px></canvas>
+	<!-- <canvas id="hoopArea" width=1270px height=800px></canvas> -->
+	<script>
+	"use strict"
 
+// 	var Hoop = function (hoopX,hoopY,hoopEndX,hoopEndY,width,color) {
+// 	this.hoopX = hoopX
+// 	this.hoopY = hoopY
+// 	this.hoopEndX = hoopEndX
+// 	this.hoopEndY = hoopEndY
+// 	this.width = width
+// 	this.color = color
+// }
+		var newGame = new Game("ballArea");
+		var canvas = $('#ballArea')
+		
+		//create instances of objects on page (ball and hoop pieces)
+		var newBall = new Ball(100,650);
+		var newHoop = new Hoop(1200,250,1200,800)
+		var newScore = new Score();
+		// var net = new Hoop(990,230,1004,310,3,'black')
+		// var net2 = new Hoop(1004,310,1028,230,3,'black')
+
+		//add instances to be rendered
+		newGame.addEntity(newBall);
+		newGame.addEntity(newHoop);
+		newGame.addEntity(newScore);
+		// newGame.addNet(net)
+
+		var gameInterval = setInterval(function(){
+			newGame.render()
+		}, 1000/90)
+
+		$('body').on('keypress', function(event){
+			if(newBall.x == 100 && newBall.y == 650) {
+				newBall.shot(newHoop);
+				// event.preventDefault()
+			}
+		})
+
+		//determine shot power
+		// var shotPower = {};
+		// var theKeyIsDown = false;
+		// $('body').on('keydown', function(event){
+		// 	if (event.keyCode === 83 && theKeyIsDown === false){
+		// 		shotPower['startTime'] = event.timeStamp;
+		// 		theKeyIsDown = true
+		// 		// console.log(start, "START IT UP")
+		// 	}
+		// })
+		// $('body').on('keyup', function(event){
+		// 	shotPower['endTime'] = event.timeStamp
+		// 	// console.log(end, "end IT UP")
+		// 	var duration = (shotPower['endTime'] - shotPower['startTime'])
+		// 	console.log(duration)
+		// 	theKeyIsDown = false
+		// 	// start = 0
+		// })
+
+		// setInterval(function(){
+		// 	newGame.render()
+		// }, 50)
+	</script>
 </body>
 </html>

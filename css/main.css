@@ -1,4 +1,4 @@
-body { /* setting and positioning background */
+#firstPage { /* setting and positioning background */
 	background-image: url("../images/homepage.jpeg");
 	background-repeat: no-repeat;
 	background-position: 50% -50%;
@@ -22,4 +22,9 @@ body { /* setting and positioning background */
 	text-decoration: none;
 	text-transform: uppercase;
 	/*text-shadow: 0px 1px 0px #2f6627;*/
+}
+
+#sub-header {
+	float:left;
+	display:inline;
 }
