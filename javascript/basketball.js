@@ -12,10 +12,42 @@ Score.prototype.draw = function (ctx) {
     ctx.fillText("Score: "+this.playerScore, 20, 350);
 }
 
-var Ball = function(x,y,radius,startAngle,endAngle,clockwise){
+var AngleClass = function (x, y){
+	this.x = 200
+	this.y = 550
+	this.direction = -1; // Starts out moving left
+}
+
+AngleClass.prototype.draw = function(ctx){
+	//start
+	ctx.beginPath()
+	ctx.strokeStyle = 'black'
+	ctx.lineWidth = 2.5
+	ctx.moveTo(150, 600)
+	ctx.lineTo(this.x, this.y)
+	ctx.stroke()
+	ctx.closePath()	
+}
+
+AngleClass.prototype.change = function(newX, newY){
+	// this.x -= newX
+	this.x += newX * this.direction;
+	this.y += newY * this.direction;
+
+	// console.log(this.x, this.direction);
+	if (this.x < 182.5) {
+	console.log(this.y)
+		this.x += newX/2
+		this.direction = 1;
+	} else if(this.y > 560) {
+		this.direction = -1;
+	}
+}
+
+var Ball = function(x,y,radius){
 	this.x = x
 	this.y = y
-	this.radius = 50
+	this.radius = 0
 	this.startAngle = 0
 	this.endAngle = Math.PI*2
 	this.xVel = 0
@@ -58,10 +90,10 @@ Ball.prototype.draw = function (ctx){
 	ctx.closePath()
 }
 
-Ball.prototype.shot = function (xVel,yVel){
+Ball.prototype.shot = function (xVelocity,yVelocity){
 	var self = this
-	this.xVel = 19.65;
-	this.yVel = -30;
+	this.xVel = xVelocity;
+	this.yVel = yVelocity;
 
 	var timer = setInterval(function () {
 		self.move(timer,newScore)
@@ -69,20 +101,15 @@ Ball.prototype.shot = function (xVel,yVel){
 	},1000/90);
 }
 
-	    // debugger;
-  		// if (self.x > 1065.5 && self.x < 1101.5 && self.y > 285 ) {
-  		// 	$('#score-board').html(parseInt($('#score-board').html(), 10) + 1)
-    // 		cancelAnimation(globalID)
-  		// 	newGame.render()
-    // 		console.log(self.x, self.y)
-    // 		}
-    // globalID = requestAnimationFrame(shotAnimation)
-
 Ball.prototype.move = function(timeVar,score) {
     if(!this.collide(newHoop)){ //doesn't collide with any object	
 		this.x+=this.xVel;
 	    this.y+=this.yVel;
 	    this.yVel+= 1; //gravity is 1
+	    if(this.x > 1270 || this.y > 800) {
+	    	score.playerScore = 0
+	    	this.reset(timeVar)
+	    }
     } else {
     	score.playerScore++
     	this.reset(timeVar)
@@ -90,13 +117,15 @@ Ball.prototype.move = function(timeVar,score) {
 }
 
 Ball.prototype.collide = function(hoop) {
-	// check to make sure newX and newY are on the board
-	// if so change the x and y values of this
-	if(this.x <= hoop.hoopX - 35 && this.x >= hoop.hoopX - 175 && this.y > hoop.hoopY + 130) {
-		return true; //score!
-	} else {
-		return false
-	}
+	//hoop collision -- score
+	if(this.x <= hoop.hoopX - 35 && this.x >= hoop.hoopX - 165 && this.y >= hoop.hoopY + 125 && this.y <= hoop.hoopY + 140) {
+		console.log('hoop')
+		return true; 
+	//backboard collision -- score
+	} else if (this.x >= hoop.hoopX - 65 && this.x <= hoop.hoopX - 35 && this.y >= hoop.hoopY + 35 && this.y <= hoop.hoopY + 170) {
+		console.log('backboard')
+		return true;
+	} 
 };
 
 Ball.prototype.reset = function(timeVar){
