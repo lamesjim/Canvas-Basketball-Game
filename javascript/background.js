@@ -8,6 +8,7 @@ var drawCourt = function(){
 	ctx2.fillRect(0, 500, canvas2.width, 500)
 	ctx2.closePath()
 	ctx2.strokeStyle = 'white'
+	ctx2.lineWidth = 3.5
 	ctx2.beginPath()
 	ctx2.moveTo(980,730)
 	ctx2.lineTo(700,730)

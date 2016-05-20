@@ -12,6 +12,9 @@ Score.prototype.draw = function (ctx) {
     ctx.fillStyle = 'white';
     ctx.fillText("Score: "+this.playerScore, 20, 250);
     if (this.playerScore >= 3) {
+    	ctx.font = "30px Arial";
+    	ctx.fillStyle = 'white';
+    	ctx.fillText("You're on fire!", 20, 300);
 		globalID = requestAnimationFrame(drawFlames)
 	} else {
 		cancelAnimationFrame(drawFlames)
