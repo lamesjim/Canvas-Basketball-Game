@@ -93,13 +93,13 @@
 		var startTime
 		var endTime
 		$('body').on('keydown', function(event){
-			if (event.keyCode === 83 && theKeyIsDown === false){
+			if (event.keyCode === 32 && theKeyIsDown === false){
 				startTime = event.timeStamp;
 				theKeyIsDown = true
 			}
 		})
 		$('body').on('keyup', function(event){
-			if (event.keyCode === 83 && theKeyIsDown === true){
+			if (event.keyCode === 32 && theKeyIsDown === true){
 				endTime = event.timeStamp
 				var duration = (endTime - startTime)/100
 				if(newBall.x == 100 && newBall.y == 650) {

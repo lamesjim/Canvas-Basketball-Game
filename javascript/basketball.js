@@ -8,10 +8,13 @@ var Score = function (){
 }
 
 Score.prototype.draw = function (ctx) {
-	ctx.font = "32px Arial";
+	ctx.font = "18px Arial";
+    ctx.fillStyle = 'white';
+    ctx.fillText("Press and hold Spacebar to shoot", 10, 780);
+   	ctx.font = "32px Arial";
     ctx.fillStyle = 'white';
     ctx.fillText("Score: "+this.playerScore, 20, 250);
-    if (this.playerScore >= 1) {
+    if (this.playerScore >= 3) {
     	ctx.font = "40px Arial";
     	ctx.fillStyle = 'hsla(10,100%,50%,1)';
     	ctx.fillText("YOU'RE ON FIRE!!!", 430, 480);
