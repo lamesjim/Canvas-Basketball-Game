@@ -12,7 +12,6 @@
 	<script src="javascript/basketball.js"></script>
 	<div id='canvasDiv'>
 		<canvas id="ballArea" width=1270px height=800px></canvas>
-		<canvas id="flameCanvas" width=64px height=64px></canvas>
 		<canvas id="backCanvas" width=1270px height=800px></canvas>
 	</div>
 	<!-- <canvas id="hoopArea" width=1270px height=800px></canvas> -->
@@ -124,8 +123,10 @@
 		var currentFlameFrame = 0
 
 		var drawFlames = function(){
-			cntx.clearRect(140, 155, 100, 100)
-			cntx.drawImage(flameImage, flameWidth*currentFlameFrame, 0, flameWidth, flameHeight, 140, 155, 100, 100)
+			cntx.clearRect(400, 150, 300, 300)
+			cntx.drawImage(flameImage, flameWidth*currentFlameFrame, 0, flameWidth, flameHeight, 250, 115, 300, 300)
+			cntx.drawImage(flameImage, flameWidth*currentFlameFrame, 0, flameWidth, flameHeight, 450, 115, 300, 300)
+			cntx.drawImage(flameImage, flameWidth*currentFlameFrame, 0, flameWidth, flameHeight, 650, 115, 300, 300)
 
 			if (currentFlameFrame == flameFrames) {
 				currentFlameFrame = 0;

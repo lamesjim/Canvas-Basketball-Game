@@ -1,14 +1,21 @@
 #firstPage { /* setting and positioning background */
-	background-image: url("../images/homepage.jpeg");
+	/*background-image: url("../images/kobe.jpeg");*/
 	background-repeat: no-repeat;
 	background-position: 50% -50%;
 	background-size: 450px 320px;
-	background-color: gray;
+	background-color: hsla(0,0%,10%,1);
+}
+
+.kobe {
+	position: 50% 50%;
+	width: 50%;
+	height: 50%;
+	margin-top: 75px;
 }
 /* position start button */
 .btn-area {
 	text-align: center;
-	margin-top: 320px;
+	/*margin-top: 320px;*/
 }
 /* style start button */
 .start-btn[type="submit"] {
@@ -35,12 +42,7 @@
 	position: absolute;
 }
 
-#flameCanvas {
-	z-index: 1;
-	position: absolute;
-}
-
 #backCanvas {
-	z-index: 0;
+	z-index: 1;
 	position: absolute;
 }
