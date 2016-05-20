@@ -1,6 +1,7 @@
 "use strict"
 
 var globalID
+var globalID2
 
 var Score = function (){
     this.playerScore = 0
@@ -8,8 +9,13 @@ var Score = function (){
 
 Score.prototype.draw = function (ctx) {
 	ctx.font = "32px Arial";
-    ctx.fillStyle = 'black';
-    ctx.fillText("Score: "+this.playerScore, 20, 350);
+    ctx.fillStyle = 'white';
+    ctx.fillText("Score: "+this.playerScore, 20, 250);
+    if (this.playerScore >= 3) {
+		globalID = requestAnimationFrame(drawFlames)
+	} else {
+		cancelAnimationFrame(drawFlames)
+	}
 }
 
 var AngleClass = function (x, y){
@@ -21,7 +27,7 @@ var AngleClass = function (x, y){
 AngleClass.prototype.draw = function(ctx){
 	//start
 	ctx.beginPath()
-	ctx.strokeStyle = 'black'
+	ctx.strokeStyle = 'white'
 	ctx.lineWidth = 2.5
 	ctx.moveTo(150, 600)
 	ctx.lineTo(this.x, this.y)
@@ -35,9 +41,8 @@ AngleClass.prototype.change = function(newX, newY){
 	this.y += newY * this.direction;
 
 	// console.log(this.x, this.direction);
-	if (this.x < 182.5) {
-	console.log(this.y)
-		this.x += newX/2
+	if (this.x < 175) {
+		// this.x += newX/2
 		this.direction = 1;
 	} else if(this.y > 560) {
 		this.direction = -1;
@@ -52,6 +57,7 @@ var Ball = function(x,y,radius){
 	this.endAngle = Math.PI*2
 	this.xVel = 0
 	this.yVel = 0
+	this.made = false
 }
 
 Ball.prototype.draw = function (ctx){
@@ -98,7 +104,7 @@ Ball.prototype.shot = function (xVelocity,yVelocity){
 	var timer = setInterval(function () {
 		self.move(timer,newScore)
 
-	},1000/90);
+	},1000/60);
 }
 
 Ball.prototype.move = function(timeVar,score) {
@@ -107,30 +113,63 @@ Ball.prototype.move = function(timeVar,score) {
 	    this.y+=this.yVel;
 	    this.yVel+= 1; //gravity is 1
 	    if(this.x > 1270 || this.y > 800) {
-	    	score.playerScore = 0
+	    	if(!this.made){
+	    		score.playerScore = 0
+	    	}
 	    	this.reset(timeVar)
 	    }
-    } else {
-    	score.playerScore++
-    	this.reset(timeVar)
-    }
+    } else if (this.collide(newHoop) == 1){
+		score.playerScore ++
+    	this.hoopAnimation()
+    } else if (this.collide(newHoop) == 2){
+    	this.xVel = this.xVel * -1
+    	// this.yVel = this.yVel * -1
+    	this.x += this.xVel-3
+		this.y += this.yVel
+		if(this.x + this.radius <= hoop.hoopX - 90 && this.x + this.radius >= hoop.hoopX - 160 && this.y + this.radius >= hoop.hoopY + 125 && this.y + this.radius <= hoop.hoopY + 140) {
+			this.made = true;
+			return 1;
+		};
+    } else if (this.collide(newHoop) == 3){
+    	this.xVel = this.xVel * -1
+    	this.yVel = this.yVel * -1
+    	this.x += this.xVel 
+		this.y += this.yVel    
+	}
 }
 
 Ball.prototype.collide = function(hoop) {
 	//hoop collision -- score
-	if(this.x <= hoop.hoopX - 35 && this.x >= hoop.hoopX - 165 && this.y >= hoop.hoopY + 125 && this.y <= hoop.hoopY + 140) {
-		console.log('hoop')
-		return true; 
-	//backboard collision -- score
-	} else if (this.x >= hoop.hoopX - 65 && this.x <= hoop.hoopX - 35 && this.y >= hoop.hoopY + 35 && this.y <= hoop.hoopY + 170) {
-		console.log('backboard')
-		return true;
-	} 
+	if(this.x + this.radius <= hoop.hoopX - 90 && this.x + this.radius >= hoop.hoopX - 160 && this.y + this.radius >= hoop.hoopY + 125 && this.y + this.radius <= hoop.hoopY + 140) {
+		this.made = true;
+		return 1;
+	//backboard collision
+	} else if (this.x + this.radius >= hoop.hoopX - 60 && this.x + this.radius >= hoop.hoopX - 40 && this.y >= hoop.hoopY - 20 && this.y <= hoop.hoopY + 150) {
+		return 2;
+	//front rim collision
+	} else if (this.x + this.radius >= hoop.hoopX - 195 && this.x + this.radius <= hoop.hoopX - 160 && this.y + this.radius >= hoop.hoopY + 125 && this.y + this.radius <= hoop.hoopY + 155){
+		return 2;
+	//back rim collision
+	} else if (this.x + this.radius >= hoop.hoopX - 90 && this.x + this.radius <= hoop.hoopX - 40 && this.y + this.radius >= hoop.hoopY + 125 && this.y + this.radius <= hoop.hoopY + 150) {
+		return 3;
+	}
 };
+
+Ball.prototype.hoopAnimation = function(timeVar){
+	this.xVel = 0
+	this.y += this.yVel
+    if(this.y > 550) {
+		this.reset(timeVar)
+    }
+}
 
 Ball.prototype.reset = function(timeVar){
 	this.x = 100
 	this.y = 650
+	this.made = false;
+	// if (newScore.playerScore == 0){
+	// 	cancelAnimationFrame(drawFlames)
+	// }
 	clearInterval(timeVar)
 }
 
@@ -144,7 +183,7 @@ var Hoop = function (hoopX,hoopY,hoopEndX,hoopEndY) {
 
 Hoop.prototype.draw = function (ctx) {
 	//pole
-	ctx.strokeStyle = 'black'
+	ctx.strokeStyle = 'gray'
 	ctx.lineWidth = 10
 	ctx.lineCap = 'round'
 	ctx.beginPath()
@@ -153,7 +192,7 @@ Hoop.prototype.draw = function (ctx) {
 	ctx.stroke()
 	ctx.closePath
 	//support beam one
-	ctx.strokeStyle = 'black'
+	ctx.strokeStyle = 'gray'
 	ctx.lineWidth = 5.5
 	ctx.lineCap = 'round'
 	ctx.beginPath()
@@ -162,7 +201,7 @@ Hoop.prototype.draw = function (ctx) {
 	ctx.stroke()
 	ctx.closePath
 	//support beam two
-	ctx.strokeStyle = 'black'
+	ctx.strokeStyle = 'gray'
 	ctx.lineWidth = 5.5
 	ctx.lineCap = 'round'
 	ctx.beginPath()
@@ -171,7 +210,7 @@ Hoop.prototype.draw = function (ctx) {
 	ctx.stroke()
 	ctx.closePath
 	//backboard
-	ctx.strokeStyle = 'black'
+	ctx.strokeStyle = 'gray'
 	ctx.lineWidth = 10
 	ctx.lineCap = 'round'
 	ctx.beginPath()
@@ -185,7 +224,7 @@ Hoop.prototype.draw = function (ctx) {
 	let endX = this.hoopX - 176
 	let endY = this.hoopY + 210
 	for (let i = 0; i < 12; i++){
-		ctx.strokeStyle = 'black'
+		ctx.strokeStyle = 'white'
 		ctx.lineWidth = '3'
 		ctx.lineCap = 'round'
 		if(i % 2 == 0){
@@ -226,7 +265,7 @@ Hoop.prototype.draw = function (ctx) {
 	ctx.closePath
 }
 
-
+// //animate shot using bezier curve
 // Ball.prototype.shot = function (hoop,ctx){
 // 	var self = this;
 // 	var t = 0;
