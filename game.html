@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=0.5">
 	<title></title>
 	<!--load links/scripts below (i.e. jquery, bootstrap, javascripts-->
 	<link rel="stylesheet" href="css/main.css">
@@ -21,8 +22,8 @@
 
 		var newGame = new Game("ballArea");
 		var canvas = document.getElementById('ballArea');
-		var cntx = this.canvas.getContext('2d');	
-		
+		var cntx = this.canvas.getContext('2d');
+
 		//create instances of objects on page (ball and hoop pieces)
 		var newBall = new Ball(100,650);
 		var newHoop = new Hoop(1200,250,1200,800)
@@ -88,7 +89,7 @@
 							'559': [20,-25],
 							'560': [21,-24],
 							'561': [21,-24]}
-		
+
 		//event listener to shoot the ball
 		var startTime
 		var endTime
@@ -119,7 +120,7 @@
 		flameImage.src = "./images/fire.png"
 		var flameWidth = 64
 		var flameHeight = 64
-		var flameFrames = 4 
+		var flameFrames = 4
 		var currentFlameFrame = 0
 
 		var drawFlames = function(){
