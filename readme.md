@@ -1,5 +1,5 @@
 # Canvas-Basketball-Game
-HTML/Javascript basketball game using Canvas API
+HTML/Javascript basketball game using the Canvas API
 
 ## Motivation
 This was my first project after 5 weeks of attending the Galvanize full-stack web development program. Still new to coding at the time, I wanted to challenge myself and try building something that wasn't like the content-based web pages we had been studying. Creating this basketball game was a great way to combine my favorite sport with all the programming concepts I learned such as OOP.
